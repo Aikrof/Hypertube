@@ -5,9 +5,15 @@
  */
 
 require('./bootstrap');
-window.Jwt = require('./storage.js');
-window.Vue = require('vue');
 
+window.Jwt = require('./JwtToken.js');
+window.Vue = require('vue');
+const Token = require('./apdateToken.js').default;
+const VueRouter = require('vue-router').default;
+const store = require('./store/VuexStore').default;
+
+
+Vue.use(VueRouter);
 Vue.config.devtools = false;
 Vue.config.productionTip = false;
 
@@ -22,17 +28,47 @@ Vue.config.productionTip = false;
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('auth-component', require('./components/Auth/AuthComponent.vue').default)
-Vue.component('login-component', require('./components/Auth/LoginComponent.vue').default);
-Vue.component('register-component', require('./components/Auth/RegisterComponent.vue').default);
-Vue.component('logo-component', require('./components/Auth/LogoComponent.vue').default);
+// Vue.component('auth-component', require('./components/Auth/AuthComponent.vue').default);
+// Vue.component('login-component', require('./components/Auth/LoginComponent.vue').default);
+// Vue.component('register-component', require('./components/Auth/RegisterComponent.vue').default);
+// Vue.component('logo-component', require('./components/Auth/LogoComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+if (Token.needToApdate()){
+    Token.refresh(function(){vueRun();});
+}
+else {
+    vueRun();
+}
 
-const app = new Vue({
-    el: '#app',
-});
+function vueRun() {
+
+    let router = new VueRouter({
+        routes: [
+            {path: '/', component: require('./views/IndexPage.vue').default},
+            {path: '/landing', component: require('./views/LandingPage.vue').default},
+            {path: '/movies/:id', component: require('./views/MoviePage.vue').default}
+        ],
+        mode: 'history',
+    });
+    router.beforeEach((to, from, next) => {
+        let exist = Jwt.tokenExist();
+
+        if (to.path === '/landing' && exist)
+            router.push('/');
+        else if (to.path !== '/landing' && !exist)
+            router.push('/landing');
+        else
+            next();
+    });
+
+    /**
+     * Next, we will create a fresh Vue application instance and attach it to
+     * the page. Then, you may begin adding components to this application
+     * or customize the JavaScript scaffolding to fit your unique needs.
+     */
+    const app = new Vue({
+        el: '#app',
+        router: router,
+        store: store,
+    });
+}

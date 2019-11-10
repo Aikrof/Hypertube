@@ -15,9 +15,15 @@ Route::prefix('/oauth')->namespace('Api\V1\OAuth')->group(function(){
     Route::post('/register', 'RegisterController');
     Route::post('/login', 'LoginController');
     Route::post('/logout', 'LogoutController');
+    Route::post('/refresh', 'RefreshController');
 });
 
 Route::prefix('/social')->namespace('Api\V1\OAuth')->group(function(){
     Route::get('/{app}', 'SocialiteController@redirectToProvider');
     Route::get('/{app}/callback', 'SocialiteController@providerCallback');
+});
+
+Route::middleware('auth:api')->namespace('Api\V1')->group(function(){
+    Route::get('/users', 'UserController@getUsers');
+    Route::get('/user/{id}', 'UserController@getUserById')->where('id', '[0-9]+');
 });

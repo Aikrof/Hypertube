@@ -11,13 +11,19 @@
 |
 */
 
-Route::group(['middleware' => 'guest'], function(){
-    Route::get('/landing', 'LandingPageController@landing')->name('landing');
-});
+//Route::group(['middleware' => 'guest'], function(){
+//    Route::get('/landing', 'LandingPageController@landing')->name('landing');
+//});
 
 
-Route::get('/', function(\Illuminate\Http\Request $request){
-    echo "<pre>";
-    var_dump('main');
-    exit;
+Route::get('/', function(){
+    return view('index');
 });
+
+Route::get('/{route}', function(){
+   return view('index');
+});
+
+//Route::get('{any}', function(){
+//    return view('index');
+//})->where('any', '([A-z\d-\/_.]+)?');

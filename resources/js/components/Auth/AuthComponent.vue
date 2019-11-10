@@ -35,19 +35,25 @@
 		},
 		methods:{
 			activate: function(target){
-				
+
 			}
-		}
+		},
+        components:{
+		    'login-component': require('./LoginComponent.vue').default,
+            'register-component': require('./RegisterComponent.vue').default,
+            'logo-component': require('./LogoComponent.vue').default,
+        }
 	}
 </script>
 
-<style>
+<style scoped>
 .mt-10em{
-	margin-top: 5em;
+	margin-top: 3em;
 }
 .landing_form_cont{
 	position: relative;
 	background-color: white;
+	border-radius: 3px;
 	box-shadow: 5px 5px 5px 5px #000000;
 }
 .tab-group{
@@ -64,7 +70,7 @@
 	margin: 0;
   	display: block;
   	text-decoration: none;
-  	padding: 15px;
+  	padding: 12px;
   	background: rgba(160, 179, 176, 0.25);
   	color: #242424;
   	font-size: 20px;

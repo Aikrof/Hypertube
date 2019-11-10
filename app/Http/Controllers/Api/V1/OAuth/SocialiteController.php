@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1\OAuth;
 
-use App\User;
 use Auth;
+use App\User;
 use Exception;
-use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -27,18 +26,35 @@ class SocialiteController extends Controller
             $app_data = Socialite::driver($app)->stateless()->user();
 
             $user = $this->findOrCreateUser($app_data, $app);
-            $jwt = $user->token();
+            $jwt = $user->setTtl(2880)->token();
         } catch (Exception $exception) {
             abort(404);
         }
 
+        return redirect()->back()
+            ->withCookie(
+                $this->setCookie('Authorization', $user, $jwt)
+            )
+            ->withCookie(
+                $this->setCookie('Authenticate', $user, $jwt)
+            );
+    }
+
+    protected function setCookie(String $name, User $user, array $jwt)
+    {
+        $value = $name === 'Authorization' ?
+            'Bearer ' . $jwt['token'] : $jwt['refresh'];
+
         return (
-            response()->json([
-                'token_type' => 'Bearer',
-                'token' => $jwt['token'],
-                'refresh' => $jwt['refresh'],
-                'expires_at' => $user->getTtl(),
-            ])
+            cookie(
+                $name,
+                $value,
+                $user->getRefreshTtl(),
+                '/',
+                null,
+                false,
+                false
+            )
         );
     }
 

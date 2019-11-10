@@ -3,7 +3,7 @@
 		<div class="form-group">
 			<h2 class="text-center">Sign in</h2>
 		</div>
-  		<div class="form-group">
+  		<div class="form-group  mb-6">
     		<label for="signIn_login">Login:</label>
     		<input type="text" v-model="login" v-bind:class="{err: errFrame.login}" class="form-control col-md-10" id="signIn_login" placeholder="Login*" autocomplete="off">
             <small class="form-text error">{{errors.login}}</small>
@@ -32,8 +32,6 @@
     let fields = [
         'login', 'password'
     ];
-    console.log(Jwt.getToken());
-    console.log(Jwt.getRefresh());
 	export default{
 		data(){
 			return {
@@ -61,7 +59,7 @@
 				axios.post('/api/oauth/login', data)
 					.then(request => {
 						Jwt.saveCookie(request.data);
-						// window.location.href = '/landing';
+						window.location.href = '/';
 					})
 					.catch(error => {
                         let err = error.request.response;
@@ -96,9 +94,8 @@
 
 </script>
 
-<style>
-
-	#check{
+<style scoped>
+    #check{
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
@@ -157,4 +154,8 @@
 	.form_container{
 		padding: 10px 30px 0 30px;
 	}
+    .error{
+        color: red;
+        font-weight: bold;
+    }
 </style>

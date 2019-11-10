@@ -3,17 +3,17 @@
 		<div class="form-group">
 			<h2 class="text-center">Sign up</h2>
 		</div>
-  		<div class="form-group">
+  		<div class="form-group mb-6">
     		<label for="signUp_login">Login:</label>
     		<input type="text" v-model="login" v-bind:class="{err: errFrame.login}" class="form-control col-md-10" id="signUp_login" placeholder="Login*" autocomplete="off">
             <small class="form-text error">{{errors.login}}</small>
         </div>
-  		<div class="form-group">
+  		<div class="form-group  mb-6">
     		<label for="signUp_email">Email:</label>
     		<input type="text" v-model="email" v-bind:class="{err: errFrame.email}" class="form-control col-md-10" id="signUp_email" placeholder="Email*" autocomplete="off">
             <small class="form-text error">{{errors.email}}</small>
         </div>
-  		<div class="form-group">
+  		<div class="form-group  mb-6">
     		<label for="signUp_password">Password:</label>
     		<input type="password" v-model="password" v-bind:class="{err: errFrame.password}" class="form-control col-md-10" id="signUp_password" placeholder="Password*">
             <small class="form-text error">{{errors.password}}</small>
@@ -93,7 +93,15 @@
     }
 
 </script>
-<style>
+<style scoped>
+    label{
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0;
+    }
+    .mb-6{
+        margin-bottom: 6px;
+    }
     .error{
         color: red;
         font-weight: bold;
