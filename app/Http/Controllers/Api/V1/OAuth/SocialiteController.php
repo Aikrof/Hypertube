@@ -24,7 +24,6 @@ class SocialiteController extends Controller
     {
         try {
             $app_data = Socialite::driver($app)->stateless()->user();
-
             $user = $this->findOrCreateUser($app_data, $app);
             $jwt = $user->setTtl(2880)->token();
         } catch (Exception $exception) {

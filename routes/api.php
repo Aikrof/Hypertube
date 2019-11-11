@@ -26,4 +26,6 @@ Route::prefix('/social')->namespace('Api\V1\OAuth')->group(function(){
 Route::middleware('auth:api')->namespace('Api\V1')->group(function(){
     Route::get('/users', 'UserController@getUsers');
     Route::get('/user/{id}', 'UserController@getUserById')->where('id', '[0-9]+');
+
+    Route::get('/movies', 'MoviesController@movies');
 });

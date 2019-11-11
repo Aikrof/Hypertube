@@ -59070,6 +59070,11 @@ __webpack_require__.r(__webpack_exports__);
   actions: {
     getAllMovies: function getAllMovies(_ref) {
       var commit = _ref.commit;
+      axios.get('/api/movies', Jwt.getHeaders()).then(function (response) {
+        console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
       commit('loadMovies', 123);
     }
   },
@@ -59356,7 +59361,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Donni\Desktop\hosts\Hypertube\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/dminakov/Desktop/hosts/Hypertube/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

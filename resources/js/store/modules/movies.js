@@ -9,6 +9,12 @@ export default {
     },
     actions:{
         getAllMovies({commit}){
+            axios.get('/api/movies', Jwt.getHeaders())
+                .then(response =>{
+                    console.log(response.data);
+                }).catch(error => {
+                    console.log(error);
+            });
             commit('loadMovies', 123);
         }
     },

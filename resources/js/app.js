@@ -12,7 +12,6 @@ const Token = require('./apdateToken.js').default;
 const VueRouter = require('vue-router').default;
 const store = require('./store/VuexStore').default;
 
-
 Vue.use(VueRouter);
 Vue.config.devtools = false;
 Vue.config.productionTip = false;
