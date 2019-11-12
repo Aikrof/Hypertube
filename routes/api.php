@@ -16,6 +16,7 @@ Route::prefix('/oauth')->namespace('Api\V1\OAuth')->group(function(){
     Route::post('/login', 'LoginController');
     Route::post('/logout', 'LogoutController');
     Route::post('/refresh', 'RefreshController');
+    Route::post('/logout', 'LogoutController');
 });
 
 Route::prefix('/social')->namespace('Api\V1\OAuth')->group(function(){

@@ -9,11 +9,11 @@ function getCookie(name){
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-// function deleteCookie(name){
-//     let exp = new Date().toUTCString();
-//     document.cookie = name +
-//         '=deleted;path=/;expires=' + exp + ';samesite';
-// }
+function deleteCookie(name){
+    let exp = new Date().toUTCString();
+    document.cookie = name +
+        '=deleted;path=/;expires=' + exp + ';samesite';
+}
 
 function JwtAuth(){
     let $token;
@@ -77,6 +77,13 @@ function JwtAuth(){
             'refresh': getCookie('Authenticate')
         }
         return ($data);
+    }
+
+    this.unsetToken = function(){
+        deleteCookie('Authorization');
+        deleteCookie('Authenticate');
+        this.$token = null;
+        this.$refresh = null;
     }
 
     let exp = function(timestamp){

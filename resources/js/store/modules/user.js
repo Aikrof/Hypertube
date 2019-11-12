@@ -12,7 +12,6 @@ export default {
             let url = '/api/user/' + Jwt.getSub();
             axios.get(url, Jwt.getHeaders())
                 .then(response => {
-                    console.log(response.data);
                     context.commit('loadUser', response.data);
                 });
         }

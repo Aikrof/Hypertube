@@ -1,7 +1,7 @@
 <template>
     <div class="index-container">
         <head-component></head-component>
-
+        <movieGallery-component></movieGallery-component>
     </div>
 </template>
 
@@ -28,6 +28,7 @@
         },
         components:{
             'head-component': require('../components/HeadComponent.vue').default,
+            'movieGallery-component': require('../components/moviesGalleryComponent.vue').default,
         }
     }
 </script>

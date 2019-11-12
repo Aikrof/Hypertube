@@ -16,12 +16,7 @@ const refresh = async function refresh(callback){
             callback();
         }
     }catch(e){
-        deleteCookie('Authorization');
-        deleteCookie('Authenticate');
-        Jwt.setTokens({
-            'token': null,
-            'refresh': null,
-        });
+        Jwt.unsetToken();
         window.location.href = '/landing';
     }
 }

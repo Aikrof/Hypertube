@@ -42,7 +42,7 @@
                         <p class="font-weight-bold mr-0 dropdown-item mt-8">
                             {{user.email}}
                         </p>
-                        <p class="font-weight-bold mr-0 dropdown-item pointer">
+                        <p @click="logout" class="font-weight-bold mr-0 dropdown-item pointer">
                             Logout
                         </p>
                     </div>
@@ -69,6 +69,13 @@
                 return this.$store.getters.getUser;
             }
         },
+        methods:{
+            logout: function(){
+                axios.post('/api/oauth/logout', "", Jwt.getHeaders());
+                Jwt.unsetToken();
+                window.location.href = '/landing';
+            }
+        }
     }
 </script>
 
@@ -106,8 +113,9 @@
 .user_dropdawn > p:hover{
     background-color: #695E771A;
 }
-.user_dropdawn > p:click{
-    background-color:
+.user_dropdawn > p:active{
+    background-color: #0069d9;
+    border-radius: 5px;
 }
 .mt-8{
     margin-top: 8px;
