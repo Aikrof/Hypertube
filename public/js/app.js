@@ -2195,11 +2195,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "moviesGalleryComponent"
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('getAllMovies');
+  },
+  computed: {
+    movies: function movies() {
+      return this.$store.getters.getAllMovies;
+    }
+  }
 });
 
 /***/ }),
@@ -2223,9 +2230,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch('getAllMovies');
-  },
   data: function data() {
     return {};
   },
@@ -2234,14 +2238,9 @@ __webpack_require__.r(__webpack_exports__);
     //     this.$store.commit('asd', 'asddfssdf');
     // }
   },
-  computed: {
-    movies: function movies() {
-      return this.$store.getters.getAllMovies;
-    }
-  },
   components: {
     'head-component': __webpack_require__(/*! ../components/HeadComponent.vue */ "./resources/js/components/HeadComponent.vue")["default"],
-    'movieGallery-component': __webpack_require__(/*! ../components/moviesGalleryComponent.vue */ "./resources/js/components/moviesGalleryComponent.vue")["default"]
+    'movie-component': __webpack_require__(/*! ../components/moviesGalleryComponent.vue */ "./resources/js/components/moviesGalleryComponent.vue")["default"]
   }
 });
 
@@ -8910,7 +8909,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.gallery-block.grid-gallery[data-v-5af32c39]{\n    padding-bottom: 60px;\n    padding-top: 60px;\n}\n.gallery-block.grid-gallery .heading[data-v-5af32c39]{\n    margin-bottom: 50px;\n    text-align: center;\n}\n.gallery-block.grid-gallery .heading h2[data-v-5af32c39]{\n    font-weight: bold;\n    font-size: 1.4rem;\n    text-transform: uppercase;\n}\n.item[data-v-5af32c39]{\n    overflow: hidden;\n    opacity: 1;\n    padding-left: 0;\n    padding-right: 0;\n    margin-left: 15px;\n    margin-right: 15px;\n}\n.description[data-v-5af32c39]{\n    display: grid;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    color: #fff;\n    padding: 0px;\n    font-size: 17px;\n    line-height: 18px;\n    width: 100%;\n    padding-top: 15px;\n    padding-bottom: 20px;\n    opacity: 1;\n    color: #fff;\n    transition: 0.8s ease;\n    text-align: center;\n    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\n    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.39));\n}\n.item .description .description-heading[data-v-5af32c39]{\n    font-size: 1em;\n    font-weight: bold;\n}\n.item .description .description-body[data-v-5af32c39]{\n    font-size: 0.8em;\n    margin-top: 10px;\n    font-weight: 300;\n}\n.gallery-block .row .item a:hover .description[data-v-5af32c39] {\n    opacity: 1;\n}\n.gallery-block .item img[data-v-5af32c39]{\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);\n    transition: 0.4s;\n}\n.gallery-block.grid-gallery .item[data-v-5af32c39]{\n    margin-bottom: 20px;\n}\n@media (min-width: 576px) {\n.gallery-block.grid-gallery .scale-on-hover[data-v-5af32c39]:hover{\n        transform: scale(1.15);\n        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;\n        opacity: 0.7;\n}\n.gallery-block .item .description[data-v-5af32c39] {\n        opacity: 0;\n}\n.gallery-block .item a:hover .description[data-v-5af32c39] {\n        opacity: 1;\n}\n.description[data-v-5af32c39]{\n        margin-bottom: -10px;\n}\n.item[data-v-5af32c39]{\n        padding-left: 15px;\n        padding-right: 15px;\n        margin-left: 0;\n        margin-right: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n.gallery-block.grid-gallery[data-v-5af32c39]{\n    margin-top: 40px;\n    padding-bottom: 60px;\n    padding-top: 60px;\n}\n.gallery-block.grid-gallery .heading[data-v-5af32c39]{\n    margin-bottom: 50px;\n    text-align: center;\n}\n.gallery-block.grid-gallery .heading h2[data-v-5af32c39]{\n    font-weight: bold;\n    font-size: 1.4rem;\n    text-transform: uppercase;\n}\n.item[data-v-5af32c39]{\n    overflow: hidden;\n    opacity: 1;\n    padding-left: 0;\n    padding-right: 0;\n    margin-left: 15px;\n    margin-right: 15px;\n}\n.description[data-v-5af32c39]{\n    display: grid;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    color: #fff;\n    padding: 0px;\n    font-size: 17px;\n    line-height: 18px;\n    width: 100%;\n    padding-top: 15px;\n    padding-bottom: 20px;\n    opacity: 1;\n    color: #fff;\n    transition: 0.8s ease;\n    text-align: center;\n    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\n    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.39));\n}\n.item .description .description-heading[data-v-5af32c39]{\n    font-size: 1em;\n    font-weight: bold;\n}\n.item .description .description-body[data-v-5af32c39]{\n    font-size: 0.8em;\n    margin-top: 10px;\n    font-weight: 300;\n}\n.gallery-block .row .item a:hover .description[data-v-5af32c39] {\n    opacity: 1;\n}\n.gallery-block .item img[data-v-5af32c39]{\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);\n    transition: 0.4s;\n}\n.gallery-block.grid-gallery .item[data-v-5af32c39]{\n    margin-bottom: 20px;\n}\n@media (min-width: 576px) {\n.gallery-block.grid-gallery .scale-on-hover[data-v-5af32c39]:hover{\n        transform: scale(1.15);\n        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;\n        opacity: 0.7;\n}\n.gallery-block .item .description[data-v-5af32c39] {\n        opacity: 0;\n}\n.gallery-block .item a:hover .description[data-v-5af32c39] {\n        opacity: 1;\n}\n.description[data-v-5af32c39]{\n        margin-bottom: -10px;\n}\n.item[data-v-5af32c39]{\n        padding-left: 15px;\n        padding-right: 15px;\n        margin-left: 0;\n        margin-right: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -42304,7 +42303,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "index-container" },
-    [_c("head-component"), _vm._v(" "), _c("movieGallery-component")],
+    [_c("head-component"), _vm._v(" "), _c("movie-component")],
     1
   )
 }

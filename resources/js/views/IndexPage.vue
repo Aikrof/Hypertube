@@ -1,16 +1,13 @@
 <template>
     <div class="index-container">
         <head-component></head-component>
-        <movieGallery-component></movieGallery-component>
+        <movie-component></movie-component>
     </div>
 </template>
 
 <script>
     "use strict"
     export default {
-        beforeCreate(){
-            this.$store.dispatch('getAllMovies');
-        },
         data(){
             return {
             }
@@ -21,14 +18,9 @@
             //     this.$store.commit('asd', 'asddfssdf');
             // }
         },
-        computed: {
-            movies(){
-                return this.$store.getters.getAllMovies;
-            }
-        },
         components:{
             'head-component': require('../components/HeadComponent.vue').default,
-            'movieGallery-component': require('../components/moviesGalleryComponent.vue').default,
+            'movie-component': require('../components/moviesGalleryComponent.vue').default,
         }
     }
 </script>

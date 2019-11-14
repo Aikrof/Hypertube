@@ -1,18 +1,15 @@
 <template>
     <section class="gallery-block grid-gallery">
         <div class="container">
-<!--            <div class="heading">-->
-<!--                <h2>Grid Gallery</h2>-->
-<!--            </div>-->
             <div class="row">
                 <div class="col-md-6 col-lg-4 item zoom-on-hover">
                     <a class="lightbox" href="#">
                         <img class="img-fluid image scale-on-hover"
                              src="">
                         <span class="description">
-                                <span class="description-heading">Lorem Ipsum</span>
-                                <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                            </span>
+                            <span class="description-heading">Lorem Ipsum</span>
+                            <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -22,12 +19,25 @@
 
 <script>
     export default {
-        name: "moviesGalleryComponent"
+        data(){
+            return {
+
+            }
+        },
+        mounted(){
+            this.$store.dispatch('getAllMovies');
+        },
+        computed:{
+            movies(){
+                return this.$store.getters.getAllMovies;
+            }
+        }
     }
 </script>
 
 <style scoped>
     .gallery-block.grid-gallery{
+        margin-top: 40px;
         padding-bottom: 60px;
         padding-top: 60px;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
@@ -18,26 +19,34 @@ class MoviesController extends Controller
 
 	public function movies(Request $request)
 	{
-		// $request = new GuzzleRequest('GET', 'https://api.themoviedb.org/3/find/tt4461676?api_key=23ba1f06e03c7d329913a75a4e15d0ea&external_source=imdb_id');
-		// $promise = $this->client->sendAsync($request)
-		// 	->then(function ($response){
-		// 		echo "<pre>";
-		// 		var_dump(json_decode($response->getBody()));
-		// 		exit;
+	    $request = $this->client->request(
+	        'GET',
+            'https://yts.lt/api/v2/list_movies.json?sort_by=year'
+        );
+	    $movies = json_decode($request->getBody())->data->movies;
 
-		// 	});
-		// $promise->wait();
+	    $data = [];
 
-		// $client = new Client();
+	    foreach ($movies as $movie){
+	        var_dump($movie);
+	        echo '--------------------- \n';
+	        $this->themovieDB($movie->imdb_code);
+	        exit;
+        }
 
-		$response = $this->client->request('GET', 'https://yts.lt/api/v2/list_movies.json?sort_by=year');
-    	// var_dump((json_decode($response->getBody()))->data);
-    	$movies = json_decode($response->getBody())->data->movies;
-    	
-    	foreach ($movies as $movie){
-    		echo $movie->year . " ";
-    		var_dump($movie->title);
-    	}
     	exit;
 	}
+
+	protected function themovieDB(String $imdb_code)
+    {
+        $themoviedb = $this->client->request(
+            'GET',
+            'https://api.themoviedb.org/3/find/'
+            . $imdb_code .
+            '?api_key=23ba1f06e03c7d329913a75a4e15d0ea&external_source=imdb_id');
+        $movie_data = json_decode($themoviedb->getBody())->movie_results[0];
+        echo "<pre>";
+        var_dump($movie_data);
+        exit;
+    }
 }
