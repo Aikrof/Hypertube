@@ -45,7 +45,7 @@ function vueRun() {
         routes: [
             {path: '/', component: require('./views/IndexPage.vue').default},
             {path: '/landing', component: require('./views/LandingPage.vue').default},
-            {path: '/movies/:id', component: require('./views/MoviePage.vue').default}
+            {path: '/movie/:id', component: require('./views/MoviePage.vue').default, props:true}
         ],
         mode: 'history',
     });

@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-light fixed-top unselectable">
-        <router-link to="/"><img src="img/logo/Hypertube.png"></router-link>
+        <router-link to="/"><img src="/img/logo/Hypertube.png"></router-link>
         <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -9,6 +9,8 @@ export default {
     },
     actions:{
         getUserData(context){
+            if (this.getters.getUser.login)
+                return;
             let url = '/api/user/' + Jwt.getSub();
             axios.get(url, Jwt.getHeaders())
                 .then(response => {

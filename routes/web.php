@@ -24,6 +24,9 @@ Route::get('/{route}', function(){
    return view('index');
 });
 
+Route::get('/movie/{id}', function(){
+    return (view('index'));
+});
 //Route::get('{any}', function(){
 //    return view('index');
 //})->where('any', '([A-z\d-\/_.]+)?');

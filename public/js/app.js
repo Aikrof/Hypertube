@@ -2195,6 +2195,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2289,8 +2300,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Movies"
+  name: "Movies",
+  props: {
+    id: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('getMovieById', this.id);
+  },
+  computed: {
+    movie: function movie() {
+      return this.$store.getters.getMovieById;
+    }
+  },
+  components: {
+    'head-component': __webpack_require__(/*! ../components/HeadComponent.vue */ "./resources/js/components/HeadComponent.vue")["default"]
+  }
 });
 
 /***/ }),
@@ -8909,7 +8942,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.gallery-block.grid-gallery[data-v-5af32c39]{\n    margin-top: 40px;\n    padding-bottom: 60px;\n    padding-top: 60px;\n}\n.gallery-block.grid-gallery .heading[data-v-5af32c39]{\n    margin-bottom: 50px;\n    text-align: center;\n}\n.gallery-block.grid-gallery .heading h2[data-v-5af32c39]{\n    font-weight: bold;\n    font-size: 1.4rem;\n    text-transform: uppercase;\n}\n.item[data-v-5af32c39]{\n    overflow: hidden;\n    opacity: 1;\n    padding-left: 0;\n    padding-right: 0;\n    margin-left: 15px;\n    margin-right: 15px;\n}\n.description[data-v-5af32c39]{\n    display: grid;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    color: #fff;\n    padding: 0px;\n    font-size: 17px;\n    line-height: 18px;\n    width: 100%;\n    padding-top: 15px;\n    padding-bottom: 20px;\n    opacity: 1;\n    color: #fff;\n    transition: 0.8s ease;\n    text-align: center;\n    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\n    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.39));\n}\n.item .description .description-heading[data-v-5af32c39]{\n    font-size: 1em;\n    font-weight: bold;\n}\n.item .description .description-body[data-v-5af32c39]{\n    font-size: 0.8em;\n    margin-top: 10px;\n    font-weight: 300;\n}\n.gallery-block .row .item a:hover .description[data-v-5af32c39] {\n    opacity: 1;\n}\n.gallery-block .item img[data-v-5af32c39]{\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);\n    transition: 0.4s;\n}\n.gallery-block.grid-gallery .item[data-v-5af32c39]{\n    margin-bottom: 20px;\n}\n@media (min-width: 576px) {\n.gallery-block.grid-gallery .scale-on-hover[data-v-5af32c39]:hover{\n        transform: scale(1.15);\n        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;\n        opacity: 0.7;\n}\n.gallery-block .item .description[data-v-5af32c39] {\n        opacity: 0;\n}\n.gallery-block .item a:hover .description[data-v-5af32c39] {\n        opacity: 1;\n}\n.description[data-v-5af32c39]{\n        margin-bottom: -10px;\n}\n.item[data-v-5af32c39]{\n        padding-left: 15px;\n        padding-right: 15px;\n        margin-left: 0;\n        margin-right: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n.gallery-block.grid-gallery[data-v-5af32c39]{\n    margin-top: 40px;\n    padding-bottom: 60px;\n    padding-top: 60px;\n}\n.gallery-block.grid-gallery .heading[data-v-5af32c39]{\n    margin-bottom: 50px;\n    text-align: center;\n}\n.gallery-block.grid-gallery .heading h2[data-v-5af32c39]{\n    font-weight: bold;\n    font-size: 1.4rem;\n    text-transform: uppercase;\n}\n.item[data-v-5af32c39]{\n    background-color: black;\n    overflow: hidden;\n    opacity: 1;\n    padding-left: 0;\n    padding-right: 0;\n    margin-left: 15px;\n    margin-right: 15px;\n}\n.description[data-v-5af32c39]{\n    display: grid;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    color: #fff;\n    padding: 0px;\n    font-size: 17px;\n    line-height: 18px;\n    width: 100%;\n    padding-top: 15px;\n    padding-bottom: 20px;\n    opacity: 1;\n    color: #fff;\n    transition: 0.8s ease;\n    text-align: center;\n    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\n    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.39));\n}\n.item .description .description-heading[data-v-5af32c39]{\n    font-size: 1em;\n    font-weight: bold;\n}\n.item .description .description-genres[data-v-5af32c39]{\n    margin-top: 10px;\n    font-weight: bold;\n    font-size: 0.8em;\n}\n.item .description .description-body[data-v-5af32c39]{\n    font-size: 0.8em;\n    margin-top: 10px;\n    font-weight: 300;\n}\n.gallery-block .row .item a:hover .description[data-v-5af32c39] {\n    opacity: 1;\n}\n.gallery-block .item img[data-v-5af32c39]{\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);\n    transition: 0.4s;\n}\n.gallery-block.grid-gallery .item[data-v-5af32c39]{\n    margin-bottom: 20px;\n}\n@media (min-width: 576px) {\n.item:hover img[data-v-5af32c39]{\n        transform: scale(1.15);\n        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;\n        opacity: 0.6;\n}\n.gallery-block .item .description[data-v-5af32c39] {\n        opacity: 0;\n}\n.gallery-block .item a:hover .description[data-v-5af32c39] {\n        opacity: 1;\n}\n.description[data-v-5af32c39]{\n        margin-bottom: -10px;\n}\n}\n", ""]);
 
 // exports
 
@@ -42021,7 +42054,7 @@ var render = function() {
     },
     [
       _c("router-link", { attrs: { to: "/" } }, [
-        _c("img", { attrs: { src: "img/logo/Hypertube.png" } })
+        _c("img", { attrs: { src: "/img/logo/Hypertube.png" } })
       ]),
       _vm._v(" "),
       _vm._m(0),
@@ -42244,41 +42277,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "gallery-block grid-gallery" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6 col-lg-4 item zoom-on-hover" }, [
-            _c("a", { staticClass: "lightbox", attrs: { href: "#" } }, [
-              _c("img", {
-                staticClass: "img-fluid image scale-on-hover",
-                attrs: { src: "" }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "description" }, [
-                _c("span", { staticClass: "description-heading" }, [
-                  _vm._v("Lorem Ipsum")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "description-body" }, [
-                  _vm._v(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
+  return _c("section", { staticClass: "gallery-block grid-gallery" }, [
+    _c("div", { staticClass: "container" }, [
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.movies, function(movie) {
+          return _c(
+            "div",
+            { staticClass: "col-md-2 col-lg-2 item zoom-on-hover" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "lightbox",
+                  attrs: { to: /movie/ + movie.movie_id }
+                },
+                [
+                  _c("img", {
+                    staticClass: "img-fluid image scale-on-hover",
+                    attrs: { src: movie.poster }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "description" }, [
+                    _c("span", { staticClass: "description-heading" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(movie.title) +
+                          "\n                            "
+                      ),
+                      _c("br"),
+                      _vm._v(
+                        "\n                            (" +
+                          _vm._s(movie.year) +
+                          ")\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-genres" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(movie.genres) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "description-body" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(movie.description) +
+                          "\n                        "
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        }),
+        0
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42357,7 +42420,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("movies")])
+  return _c(
+    "div",
+    { staticClass: "index-container" },
+    [
+      _c("head-component"),
+      _vm._v(" "),
+      _c("h1", { staticStyle: { "font-size": "300px" } }, [
+        _vm._v(_vm._s(_vm.id))
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58668,8 +58742,9 @@ function vueRun() {
       path: '/landing',
       component: __webpack_require__(/*! ./views/LandingPage.vue */ "./resources/js/views/LandingPage.vue")["default"]
     }, {
-      path: '/movies/:id',
-      component: __webpack_require__(/*! ./views/MoviePage.vue */ "./resources/js/views/MoviePage.vue")["default"]
+      path: '/movie/:id',
+      component: __webpack_require__(/*! ./views/MoviePage.vue */ "./resources/js/views/MoviePage.vue")["default"],
+      props: true
     }],
     mode: 'history'
   });
@@ -59304,22 +59379,40 @@ __webpack_require__.r(__webpack_exports__);
   getters: {
     getAllMovies: function getAllMovies(state) {
       return state.movies;
+    },
+    getMovieById: function getMovieById(state) {
+      return state.movie;
     }
   },
   actions: {
     getAllMovies: function getAllMovies(_ref) {
       var commit = _ref.commit;
-      axios.get('/api/movies', Jwt.getHeaders()).then(function (response) {
+      if (this.getters.getAllMovies.length) return;
+      var url = '/api/movies' + window.location.search;
+      axios.get(url, Jwt.getHeaders()).then(function (response) {
         console.log(response.data);
+        commit('loadMovies', response.data);
       })["catch"](function (error) {
         console.log(error);
       });
-      commit('loadMovies', 123);
+    },
+    getMovieById: function getMovieById(_ref2, id) {
+      var commit = _ref2.commit;
+      var url = '/api/movies/' + id;
+      axios.get(url, Jwt.getHeaders()).then(function (response) {
+        console.log(response.data);
+        commit('loadMovie', response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   },
   mutations: {
     loadMovies: function loadMovies(state, data) {
       state.movies = data;
+    },
+    loadMovie: function loadMovie(state, data) {
+      state.movie = data;
     }
   }
 });
@@ -59348,6 +59441,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   actions: {
     getUserData: function getUserData(context) {
+      if (this.getters.getUser.login) return;
       var url = '/api/user/' + Jwt.getSub();
       axios.get(url, Jwt.getHeaders()).then(function (response) {
         context.commit('loadUser', response.data);

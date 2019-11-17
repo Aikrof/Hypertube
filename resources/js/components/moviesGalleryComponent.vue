@@ -2,15 +2,26 @@
     <section class="gallery-block grid-gallery">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-4 item zoom-on-hover">
-                    <a class="lightbox" href="#">
+                <div class="col-md-2 col-lg-2 item zoom-on-hover"
+                     v-for="movie in movies">
+                    <router-link class="lightbox"
+                                 :to="/movie/ + movie.movie_id">
                         <img class="img-fluid image scale-on-hover"
-                             src="">
+                             :src="movie.poster">
                         <span class="description">
-                            <span class="description-heading">Lorem Ipsum</span>
-                            <span class="description-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                            <span class="description-heading">
+                                {{movie.title}}
+                                <br>
+                                ({{movie.year}})
+                            </span>
+                            <span class="description-genres">
+                                {{movie.genres}}
+                            </span>
+                            <span class="description-body">
+                                {{movie.description}}
+                            </span>
                         </span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -53,6 +64,7 @@
         text-transform: uppercase;
     }
     .item{
+        background-color: black;
         overflow: hidden;
         opacity: 1;
         padding-left: 0;
@@ -84,7 +96,11 @@
         font-size: 1em;
         font-weight: bold;
     }
-
+    .item .description .description-genres{
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 0.8em;
+    }
     .item .description .description-body{
         font-size: 0.8em;
         margin-top: 10px;
@@ -105,11 +121,10 @@
     }
 
     @media (min-width: 576px) {
-
-        .gallery-block.grid-gallery .scale-on-hover:hover{
+        .item:hover img{
             transform: scale(1.15);
             box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;
-            opacity: 0.7;
+            opacity: 0.6;
         }
         .gallery-block .item .description {
             opacity: 0;
@@ -119,12 +134,6 @@
         }
         .description{
             margin-bottom: -10px;
-        }
-        .item{
-            padding-left: 15px;
-            padding-right: 15px;
-            margin-left: 0;
-            margin-right: 0;
         }
     }
 </style>
