@@ -28,6 +28,6 @@ Route::middleware('auth:api')->namespace('Api\V1')->group(function(){
     Route::get('/users', 'UserController@getUsers');
     Route::get('/user/{id}', 'UserController@getUserById')->where('id', '[0-9]+');
 
-    Route::get('/movies/{id}', 'MoviesController@getMovieById')->where('id', '[0-9]+');
     Route::get('/movies', 'MoviesController@getMovies');
+    Route::get('/movie/{id}', 'MoviesController@getMovieById')->where('id', '[0-9]+');
 });

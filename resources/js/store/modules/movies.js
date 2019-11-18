@@ -3,6 +3,7 @@
 export default {
     state:{
         movies: {},
+        movie: {},
     },
     getters:{
         getAllMovies: state => state.movies,
@@ -22,7 +23,7 @@ export default {
             });
         },
         getMovieById({commit}, id){
-            let url = '/api/movies/' + id;
+            let url = '/api/movie/' + id;
             axios.get(url, Jwt.getHeaders())
                 .then(response =>{
                    console.log(response.data);

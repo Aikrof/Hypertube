@@ -23,11 +23,14 @@ class MoviesController extends Controller
         $response = $this->client->request('GET', $url);
 
         $movie = json_decode($response->getBody())->data->movie;
+        
+        $data = $this->getCommonMovieData($movie, true);
+        $data = array_merge(
+            $this->getCommonMovieData($movie, true),
+            $this->getIndividualMovieData($movie)
+        );
 
-        $data = $this->getMovieData($movie, true);
-        echo "<pre>";
-        var_dump($movie);
-        exit;
+        return (response()->json($data, 200));
     }
 
 	public function getMovies(Request $request)
@@ -39,7 +42,7 @@ class MoviesController extends Controller
         $data = [];
 
         foreach ($movies as $key => $movie){
-            $data[$key] = $this->getMovieData($movie);
+            $data[$key] = $this->getCommonMovieData($movie);
 
 //var_dump($movie);exit;
 //            $data[$key] = array_merge(
@@ -53,7 +56,7 @@ class MoviesController extends Controller
         );
 	}
 
-	protected function getMovieData($movie, $withFullDesc = false)
+	protected function getCommonMovieData($movie, $withFullDesc = false)
     {
         return ([
             'movie_id' => $movie->id,
@@ -70,6 +73,40 @@ class MoviesController extends Controller
             'year' => $movie->year,
             'poster' => $movie->medium_cover_image,
             'rating' => $movie->rating
+        ]);
+    }
+
+    protected function getIndividualMovieData($movie)
+    {
+        $screenshots = [
+            $movie->medium_screenshot_image1,
+            $movie->medium_screenshot_image2,
+            $movie->medium_screenshot_image3
+        ];
+
+        $actors = [];
+        foreach ($movie->cast as $key => $actor){
+            $actors[$key] = [
+                'name' => $actor->name,
+                'img' => $actor->url_small_image ?? null
+            ];
+        }
+
+        $torrents = [];
+        foreach ($movie->torrents as $key => $torrent){
+            $torrents[$key] = [
+                'url' => $torrent->url,
+                'quality' => $torrent->quality,
+                'size' => $torrent->size
+            ];
+        }
+
+        return ([
+            'screenshots' => $screenshots,
+            'actors' => $actors,
+            'torrents' => $torrents,
+            'yt_trailer_code' => $movie->yt_trailer_code,
+            'runtime' => $movie->runtime
         ]);
     }
 

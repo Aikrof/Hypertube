@@ -20,7 +20,7 @@
         },
         components:{
             'head-component': require('../components/HeadComponent.vue').default,
-            'movie-component': require('../components/moviesGalleryComponent.vue').default,
+            'movie-component': require('../components/MoviesGalleryComponent.vue').default,
         }
     }
 </script>
