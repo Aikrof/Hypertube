@@ -98,6 +98,7 @@
     width: 220px;
     height: 250px;
     border-radius: 5px;
+    border: 1px solid black;
 }
 .dropdown-menu-right{
     right: -3rem;

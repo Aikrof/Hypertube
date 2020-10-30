@@ -18,7 +18,6 @@ function deleteCookie(name){
 function JwtAuth(){
     let $token;
     let $refresh;
-    this.apdate = false;
 
     this.getToken = function(){
         return this.$token;

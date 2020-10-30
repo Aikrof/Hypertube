@@ -6,9 +6,6 @@
             <div class="row">
                 <div class="poster_container">
                     <img :src="movie.poster" class="pointer movie_poster unselectable">
-                    <!-- <ul>
-                        <torrent-component></torrent-component>
-                    </ul> -->
                 </div>
                 <div class="container-fluid movie_data_container">
                     <div class="col-md-12">
@@ -20,7 +17,8 @@
                             <br>
                             {{movie.genres}}.
                         </h4>
-                        <a href="#" class="unselectable">
+                        <a :href="'https://www.imdb.com/title/' + movie.imdb_code"
+                           class="unselectable" title="IMDb Rating" target="_blank">
                             <img class="imdb" src="/img/icons/imdb.png">
                             <h4 class="movie_rating">
                                 {{movie.rating}} / 10
@@ -31,37 +29,84 @@
                             {{movie.description}}
                         </p>
                         <div class="col-md-12 actors_container">
-                            <actor-component v-for="actor in movie.actors" :actor="actor" :key="actor.name"></actor-component>
+                            <div class="btn-group dropright col-md-12 mr-0">
+                                <h5 class="dropdown-toggle unselectable pointer"
+                                    @click="toggleActors">Casts: </h5>
+                                <div class="dropdown_menu pointer col-md-12"
+                                     :class="{a_disable: actor_disable}">
+                                    <actor-component
+                                        v-for="actor in movie.actors"
+                                        :actor="actor"
+                                        :key="actor.name">
+                                    </actor-component>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12 screenshots_container unselectable pointer">
-                            <screenshot-component v-for="screen in movie.screenshots" :screen="screen" :key='screen'></screenshot-component>
+                            <screenshot-component
+                                v-for="screen in movie.screenshots"
+                                :screen="screen"
+                                :key='screen'>
+
+                            </screenshot-component>
+                        </div>
+                        <div class="col-md-12 torrents_container unselectable">
+                            <h5 class="torrent_available">
+                                Available in:
+                            </h5>
+                            <torrent-component
+                                v-for="torrent in movie.torrents"
+                                :torrent="torrent"
+                                :movie_title="movie.title"
+                                :key="torrent.url">
+                            </torrent-component>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" style="height:20px;background-color:black"></div>
+<!--            <div class="row">-->
+<!--                <iframe width="1108" height="584" :src="'https://www.youtube.com/embed/' + movie.yt_trailer_code" frameborder="0" allowfullscreen></iframe>-->
+<!--            </div>-->
+            <div class="row">
+                <stream-component
+                    :torrent="movie.torrents"
+                    :poster="movie.poster"
+                >
+                </stream-component>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    "use strict"
+
     export default {
         name: "Movies",
         props:{
             id:{
-                required: true
+                required: true,
             },
         },
         data(){
             return {
+                actor_disable: true,
             }
+        },
+        methods:{
+            toggleActors: function(){
+                this.actor_disable = !this.actor_disable;
+            },
         },
         mounted(){
             this.$store.dispatch('getMovieById', this.id);
         },
         computed:{
             movie() {
-                return this.$store.getters.getMovieById;
+                let movie_id = this.$store.getters.getMovieById.movie_id;
+                if (movie_id !== undefined && this.id === movie_id.toString())
+                    return this.$store.getters.getMovieById;
+                return {};
             }
         },
         components:{
@@ -69,6 +114,7 @@
             'actor-component': require('../components/movie/ActorComponent.vue').default,
             'screenshot-component': require('../components/movie/ScreenshotComponent').default,
             'torrent-component': require('../components/movie/TorrentsComponent').default,
+            'stream-component': require('../components/movie/StreamComponent').default,
         }
     };
 </script>
@@ -91,6 +137,7 @@
     .movie_poster{
         width: 240px;
         height: 355px;
+        border-radius: 2px;
     }
     .movie_title{
         font-size: 36px;
@@ -131,16 +178,35 @@
         /*justify-content: space-between;*/
     }
     .actors_container{
-        display:flex;
+        /*display:flex;*/
         padding: 0;
-        flex-wrap: wrap;
+        /*flex-wrap: wrap;*/
         margin-bottom: 1rem;
+    }
+    .actors_container > div > h5{
+        margin: 0;
+        font-weight:bold;
+        font-style:italic;
+    }
+    .a_disable{
+        display: none;
     }
     .screenshots_container{
         padding: 0;
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 1rem;
+    }
+    .torrents_container{
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+    .torrent_available{
+        font-weight:bold;
+        font-style:italic;
+        padding-right: 10px;
     }
     @media screen and (max-width: 991px){
         .container{

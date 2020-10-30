@@ -1,10 +1,11 @@
 <template>
-    <div class="actor_container">
+    <a class="actor_container"
+    :href="'https://www.imdb.com/name/'+ actor.imdb_code +'/'" target="_blank" title="IMDb profile">
         <img class="actor_img" :src="actor.img">
-        <p class="pointer actor_name" @mouseover="overImg" @mouseout="outImg">
-            {{actor.name}} /
+        <p class="actor_name">
+            {{actor.name}}
         </p>
-    </div>
+    </a>
 </template>
 
 <script>
@@ -16,35 +17,24 @@
             }
         },
         methods:{
-            overImg: function(){
-                this.$el.querySelector('img').classList.add('op');
-            },
-            outImg: function(){
-                this.$el.querySelector('img').classList.remove('op');
-            }
-        }
+        },
     };
 </script>
 
 <style scoped>
     .actor_container{
-        position: relative;
-        display: flex;
-        justify-content:center;
-        align-items: center;
+        display: inline-flex;
+        flex-wrap: wrap;
     }
     .actor_name{
+        display: flex;
+        align-items: center;
         font-style: italic;
-        margin: 0px 5px 0px 0px;
+        margin: 0px 5px 0px 5px;
     }
     .actor_img{
-        border-radius: 50%;
-        position: absolute;
-        top: -60px;
-        display: flex;
-        opacity: 0;
-    }
-    .op{
-        opacity: 1;
+        border-radius: 40%;
+        width: 40px;
+        height: 40px;
     }
 </style>

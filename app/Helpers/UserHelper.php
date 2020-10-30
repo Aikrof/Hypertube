@@ -11,8 +11,8 @@ class UserHelper
         $http = explode(':', $user->icon)[0];
 
         if ($http !== 'http' && $http !== 'https'){
-            $user_icon = $user->icon === 'default_user_icon.png' ?
-                'img/icons/default_user_icon.png' :
+            $user_icon = $user->icon === 'default_icon.png' ?
+                '/img/icons/default_icon.png' :
                 'storage/app/public/' . $user->app . $user->login . $user->icon;
         }
         else

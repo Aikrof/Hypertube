@@ -1,12 +1,5 @@
 "use strict";
 
-function deleteCookie(name){
-    let exp = new Date().toUTCString();
-    document.cookie = name +
-        '=deleted;path=/;expires=' + exp + ';samesite';
-}
-
-
 const refresh = async function refresh(callback){
     try {
         let response = await axios.post('/api/oauth/refresh', "", Jwt.getHeaders());

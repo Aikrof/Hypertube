@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use http\Env\Response;
+//use http\Env\Response;
+use stdClass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request as GuzzleRequest;
+//use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class MoviesController extends Controller
 {
@@ -17,13 +18,13 @@ class MoviesController extends Controller
 		$this->client = new Client();
 	}
 
-	public function getMovieById(Request $request, $id)
+	public function getMovieById(int $id)
     {
         $url = 'https://yts.lt/api/v2/movie_details.json?with_images=true&with_cast=true&movie_id=' . $id;
         $response = $this->client->request('GET', $url);
 
         $movie = json_decode($response->getBody())->data->movie;
-        
+
         $data = $this->getCommonMovieData($movie, true);
         $data = array_merge(
             $this->getCommonMovieData($movie, true),
@@ -43,12 +44,6 @@ class MoviesController extends Controller
 
         foreach ($movies as $key => $movie){
             $data[$key] = $this->getCommonMovieData($movie);
-
-//var_dump($movie);exit;
-//            $data[$key] = array_merge(
-//                $data[$key],
-//                $this->themovieDB($movie->imdb_code)
-//            );
         }
 
 	    return (
@@ -60,6 +55,7 @@ class MoviesController extends Controller
     {
         return ([
             'movie_id' => $movie->id,
+            'imdb_code' => $movie->imdb_code,
             'title' => $movie->title,
             'genres' => implode(', ' , $movie->genres),
             'description' => $withFullDesc ?
@@ -88,7 +84,8 @@ class MoviesController extends Controller
         foreach ($movie->cast as $key => $actor){
             $actors[$key] = [
                 'name' => $actor->name,
-                'img' => $actor->url_small_image ?? null
+                'img' => $actor->url_small_image ?? '/img/icons/default_actor_icon.jpg',
+                'imdb_code' => 'nm' . $actor->imdb_code
             ];
         }
 
@@ -97,7 +94,8 @@ class MoviesController extends Controller
             $torrents[$key] = [
                 'url' => $torrent->url,
                 'quality' => $torrent->quality,
-                'size' => $torrent->size
+                'size' => $torrent->size,
+                'magnetLink' => $this->createMagnetLink($torrent)
             ];
         }
 
@@ -108,6 +106,17 @@ class MoviesController extends Controller
             'yt_trailer_code' => $movie->yt_trailer_code,
             'runtime' => $movie->runtime
         ]);
+    }
+
+    protected function createMagnetLink(stdClass $torrent)
+    {
+        return (
+            $torrent->quality === "3D" ?
+                null :
+                urlencode("magnet:?xl=" . $torrent->size_bytes .
+                "&xt=urn:btih:" . $torrent->hash .
+                config('torrentTrackerList'))
+        );
     }
 
 	protected function themovieDB(String $imdb_code)

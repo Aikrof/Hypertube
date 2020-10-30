@@ -11,13 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.styles([
-        'node_modules/bootstrap/dist/css/bootstrap.css'
-    ],
-    'public/css/app.css'
-)
+
+mix
+    .styles([
+        'node_modules/bootstrap/dist/css/bootstrap.css',
+        'node_modules/vue-plyr/dist/vue-plyr.css'
+    ], 'public/css/app.css')
     .js([
         'resources/js/app.js',
-    ],  'public/js/app.js');
+    ],  'public/js/app.js').sourceMaps();
 
 // mix.js('resources/js/app.js', 'public/js');

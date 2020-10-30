@@ -41,6 +41,6 @@ class RegisterController extends Controller
             'refresh' => $jwt['refresh'],
             'token_expires_at' => $user->getExpTtl(),
             'refresh_expires_at' => $user->getRefreshExpTtl(),
-        ], 200));
+        ], 201));
     }
 }
